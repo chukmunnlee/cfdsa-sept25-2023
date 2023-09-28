@@ -80,6 +80,18 @@ spec:
         app: minio
         name: minio-po
     spec:
+      initContainers:
+      - name: change-perms
+        image: busybox
+        imagePullPolicy: IfNotPresent
+        command:
+        - /bin/sh
+        - -c 
+        - "chmod 777 /data"
+        volumeMounts:
+        - name: data-vol
+          mountPath: /data
+
       containers:
       - name: minio-container
         image: bitnami/minio:2023.9.23
