@@ -31,6 +31,8 @@ func randNums(count int) []int {
 
 	var num [14]int
 
+	fmt.Println("hello, world")
+
 	rand.Seed(time.Now().UnixNano())
 
 	for i := 0; i < 14; i++ {

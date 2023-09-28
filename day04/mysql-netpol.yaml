@@ -1,0 +1,38 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: deny-all
+  namespace: dbns
+
+spec:
+  podSelector:
+    matchLabels:
+      name: db-po
+  policyTypes:
+  - Ingress
+  - Egress
+
+--- 
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: access-db
+  namespace: dbns
+
+spec:
+  podSelector:
+    matchLabels:
+      name: db-po
+
+  policyTypes:
+  - Ingress
+
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          allow: db
+    ports:
+    - port: 3306
+
